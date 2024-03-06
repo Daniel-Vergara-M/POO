@@ -16,7 +16,8 @@ private:
     string sexo;
 
 public:
-    void pedirDatos() {
+    void pedirDatos()
+    {
         cout << "Ingrese su nombre: ";
         cin >> this->nombre;
         cout << "Ingrese su apellido: ";
@@ -35,7 +36,8 @@ public:
         cin >> this->estatura;
     }
 
-    void mostrarPersona() {
+    void mostrarPersona()
+    {
         cout << "Nombre: " << this->nombre << endl;
         cout << "Apellido: " << this->apellido << endl;
         cout << "Tipo de documento: " << this->tipoDoc << endl;
@@ -45,21 +47,45 @@ public:
         cout << "Peso: " << this->peso << endl;
         cout << "Estatura: " << this->estatura << endl;
     }
-    bool mayorEdad() {
-        if (this->edad >= 18) {
+    bool mayorEdad()
+    {
+        if (this->edad >= 18)
+        {
             return true;
         }
         return false;
     }
-    void calcularIMC() {
-        float pesoActual = this->peso/(pow(this->estatura, 2));
-        if (pesoActual < 20) {
+    void calcularIMC()
+    {
+        float pesoActual = this->peso / (pow(this->estatura, 2));
+        if (pesoActual < 20)
+        {
             cout << "El peso está por debajo de lo ideal" << endl;
-        } else if (pesoActual >= 20 && pesoActual <=25) {
+        }
+        else if (pesoActual >= 20 && pesoActual <= 25)
+        {
             cout << "El peso es ideal" << endl;
-        } else {
+        }
+        else
+        {
             cout << "El peso está por encima de lo ideal" << endl;
         }
     }
-
 };
+
+int main()
+{
+    Persona persona1;
+    persona1.pedirDatos();
+    persona1.mostrarPersona();
+    if (persona1.mayorEdad())
+    {
+        cout << "Es mayor de edad" << endl;
+    }
+    else
+    {
+        cout << "Es menor de edad" << endl;
+    }
+    persona1.calcularIMC();
+    return 0;
+}
