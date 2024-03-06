@@ -17,6 +17,18 @@ int main()
     {
         cout << "Es menor de edad" << endl;
     }
-    persona1.calcularIMC();
+    string peso = persona1.calcularIMC();
+    if (peso == "PESOBAJO")
+    {
+        cout << "El peso esta por debajo de lo ideal" << endl;
+    }
+    else if (peso == "PESOIDEAL")
+    {
+        cout << "El peso es ideal" << endl;
+    }
+    else
+    {
+        cout << "El peso esta por encima de lo ideal" << endl;
+    }
     return 0;
 }

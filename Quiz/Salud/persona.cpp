@@ -93,20 +93,20 @@ public:
         }
         return false;
     }
-    void calcularIMC()
+    string calcularIMC()
     {
         float pesoActual = this->getPeso() / (pow(this->getEstatura(), 2));
         if (pesoActual < 20)
         {
-            cout << "El peso está por debajo de lo ideal" << endl;
+           return "PESOBAJO";
         }
         else if (pesoActual >= 20 && pesoActual <= 25)
         {
-            cout << "El peso es ideal" << endl;
+            return "PESOIDEAL";
         }
         else
         {
-            cout << "El peso está por encima de lo ideal" << endl;
+           return "SOBREPESO";
         }
     }
 };
