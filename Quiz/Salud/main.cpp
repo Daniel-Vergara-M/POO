@@ -10,12 +10,49 @@ private:
     string documento;
     string nombre;
     string apellido;
-    float peso;
-    float estatura;
+    int peso;
+    double estatura;
     int edad;
     string sexo;
 
 public:
+    Persona(){};
+    string getTipoDoc()
+    {
+        return this->tipoDoc;
+    }
+    string getDocumento()
+    {
+        return this->documento;
+    }
+    string getNombre()
+    {
+        return this->nombre;
+    }
+    string getApellido()
+    {
+        return this->apellido;
+    }
+    string getNombreCompleto()
+    {
+        return this->getNombre() + " " + this->getApellido();
+    }
+    int getPeso()
+    {
+        return this->peso;
+    }
+    double getEstatura()
+    {
+        return this->estatura;
+    }
+    int getEdad()
+    {
+        return this->edad;
+    }
+    string getSexo()
+    {
+        return this->sexo;
+    }
     void pedirDatos()
     {
         cout << "Ingrese su nombre: ";
@@ -38,14 +75,14 @@ public:
 
     void mostrarPersona()
     {
-        cout << "Nombre: " << this->nombre << endl;
-        cout << "Apellido: " << this->apellido << endl;
-        cout << "Tipo de documento: " << this->tipoDoc << endl;
-        cout << "Documento: " << this->documento << endl;
-        cout << "Género: " << this->sexo << endl;
-        cout << "Edad: " << this->edad << endl;
-        cout << "Peso: " << this->peso << endl;
-        cout << "Estatura: " << this->estatura << endl;
+        cout << "Nombre: " << this->getNombre() << endl;
+        cout << "Apellido: " << this->getApellido() << endl;
+        cout << "Tipo de documento: " << this->getTipoDoc() << endl;
+        cout << "Documento: " << this->getDocumento() << endl;
+        cout << "Género: " << this->getSexo() << endl;
+        cout << "Edad: " << this->getEdad() << endl;
+        cout << "Peso: " << this->getPeso() << " Kg" << endl;
+        cout << "Estatura: " << this->getEstatura() << endl;
     }
     bool mayorEdad()
     {
@@ -57,7 +94,7 @@ public:
     }
     void calcularIMC()
     {
-        float pesoActual = this->peso / (pow(this->estatura, 2));
+        float pesoActual = this->getPeso() / (pow(this->getEstatura(), 2));
         if (pesoActual < 20)
         {
             cout << "El peso está por debajo de lo ideal" << endl;
