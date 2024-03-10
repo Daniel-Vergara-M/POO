@@ -8,13 +8,12 @@ class Inicio
 {
 private:
     Persona p;
-
 public:
     Inicio(){};
     void run()
     {
         this->p.pedirDatos();
-        this->p.mostrarPersona();
+        this->p.mostrarDatos();
         if (this->p.mayorEdad())
         {
             cout << "Es mayor de edad" << endl;
@@ -23,12 +22,12 @@ public:
         {
             cout << "Es menor de edad" << endl;
         }
-        string peso = this->p.calcularIMC();
-        if (peso == "PESOBAJO")
+        double peso = this->p.calcularIMC();
+        if (peso < 20)
         {
             cout << "El peso esta por debajo de lo ideal" << endl;
         }
-        else if (peso == "PESOIDEAL")
+        else if (peso >= 20 && peso <= 25)
         {
             cout << "El peso es ideal" << endl;
         }
