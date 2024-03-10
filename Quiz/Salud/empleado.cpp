@@ -11,9 +11,45 @@ private:
     int valorHora;
     int horasTrabajadas;
     string departamento;
+    double honorarios;
 
 public:
-    Empleado(){};
+    Empleado() : Persona(){};
+    ~Empleado(){};
+    string getCargo()
+    {
+        return this->cargo;
+    }
+    void setCargo(string cargo) {
+        this->cargo = cargo;
+    }
+    int getValorHora()
+    {
+        return this->valorHora;
+    }
+    void setValorHora(int valorHora) {
+        this->valorHora = valorHora;
+    }
+    int getHorasTrabajadas()
+    {
+        return this->horasTrabajadas;
+    }
+    void setHorasTrabajadas(int horasTrabajadas) {
+        this->horasTrabajadas = horasTrabajadas;
+    }
+    string getDepartamento()
+    {
+        return this->departamento;
+    }
+    void setDepartamento(string departamento) {
+        this->departamento = departamento;
+    }
+    double getHonorarios() {
+        return this->honorarios;
+    }
+    void setHonorarios(double honorarios) {
+        this->honorarios = honorarios;
+    }
     void pedirDatos()
     {
         Persona::pedirDatos();
@@ -27,14 +63,18 @@ public:
         cin >> this->departamento;
     }
 
-    void calcularHonorarios() {
-        double honorarios = (this->valorHora * this->horasTrabajadas) - (this->valorHora * this->horasTrabajadas) * 0.966;
-        cout << "Tipo de documento: " << this->getTipoDoc() << endl
-                << "Documento: " << this->getDocumento() << endl
-                << "Nombre: " << this->getNombreCompleto() << endl
-                << "Cargo: " << this->cargo << endl
-                << "Valor por hora: " << this->valorHora << endl
-                << "Honorarios: " << honorarios << endl;
+    double calcularHonorarios()
+    {
+        this->setHonorarios((this->valorHora * this->horasTrabajadas) - (this->valorHora * this->horasTrabajadas) * 0.966);
+        return this->honorarios;
+    }
 
+    void mostrarDatos(){
+        Persona::mostrarDatos();
+        cout << "Cargo: " << this->cargo << endl;
+        cout << "Valor por hora: " << this->valorHora << endl;
+        cout << "Horas trabajadas: " << this->horasTrabajadas << endl;
+        cout << "Departamento: " << this->departamento << endl;
+        cout << "Honorarios: " << this->calcularHonorarios() << endl;
     }
 };
