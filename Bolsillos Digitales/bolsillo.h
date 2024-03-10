@@ -9,9 +9,13 @@ class BolsilloDigital
 private:
     string name;
     string phoneNumber;
-    string password;
     int balance;
 
+    virtual void addToBalance(int amount) = 0;
+    virtual void subtractFromBalance(int amount) = 0;
+
+protected:
+    string password;
 public:
     BolsilloDigital(){};
     BolsilloDigital(string name, string phoneNumber, string password, int balance)
@@ -21,10 +25,15 @@ public:
         this->password = password;
         this->balance = balance;
     }
+    ~BolsilloDigital(){};
 
     string getName()
     {
         return this->name;
+    }
+    string setName(string name)
+    {
+        this->name = name;
     }
 
     string getPhoneNumber()
@@ -32,14 +41,14 @@ public:
         return this->phoneNumber;
     }
 
+    string setPhoneNumber(string phoneNumber)
+    {
+        this->phoneNumber = phoneNumber;
+    }
+
     string getPassword()
     {
         return this->password;
-    }
-
-    void setBalance(int balance)
-    {
-        this->balance = balance;
     }
 
     void addToBalance(int amount)
@@ -50,6 +59,4 @@ public:
     {
         this->balance -= amount;
     }
-
-    ~BolsilloDigital(){};
 };
