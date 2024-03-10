@@ -18,41 +18,74 @@ private:
 
 public:
     Persona(){};
+    ~Persona(){};
     string getTipoDoc()
     {
         return this->tipoDoc;
+    }
+    void setTipoDoc(string tipoDoc)
+    {
+        this->tipoDoc = tipoDoc;
     }
     string getDocumento()
     {
         return this->documento;
     }
+    void setDocumento(string documento)
+    {
+        this->documento = documento;
+    }
     string getNombre()
     {
         return this->nombre;
+    }
+    void setNombre(string nombre)
+    {
+        this->nombre = nombre;
     }
     string getApellido()
     {
         return this->apellido;
     }
+    void setApellido(string apellido)
+    {
+        this->apellido = apellido;
+    }
     string getNombreCompleto()
     {
-        return this->getNombre() + " " + this->getApellido();
+        return this->nombre + " " + this->apellido;
     }
     int getPeso()
     {
         return this->peso;
     }
+    void setPeso(int peso)
+    {
+        this->peso = peso;
+    }
     double getEstatura()
     {
         return this->estatura;
+    }
+    void setEstatura(double estatura)
+    {
+        this->estatura = estatura;
     }
     int getEdad()
     {
         return this->edad;
     }
+    void setEdad(int edad)
+    {
+        this->edad = edad;
+    }
     string getSexo()
     {
         return this->sexo;
+    }
+    void setSexo(string sexo)
+    {
+        this->sexo = sexo;
     }
     void pedirDatos()
     {
@@ -74,7 +107,7 @@ public:
         cin >> this->estatura;
     }
 
-    void mostrarPersona()
+    void mostrarDatos()
     {
         cout << "Nombre: " << this->getNombre() << endl;
         cout << "Apellido: " << this->getApellido() << endl;
@@ -93,20 +126,9 @@ public:
         }
         return false;
     }
-    string calcularIMC()
+    double calcularIMC()
     {
-        float pesoActual = this->getPeso() / (pow(this->getEstatura(), 2));
-        if (pesoActual < 20)
-        {
-           return "PESOBAJO";
-        }
-        else if (pesoActual >= 20 && pesoActual <= 25)
-        {
-            return "PESOIDEAL";
-        }
-        else
-        {
-           return "SOBREPESO";
-        }
+        double pesoActual = this->getPeso() / (pow(this->getEstatura(), 2));
+        return pesoActual;
     }
 };
