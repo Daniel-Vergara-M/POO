@@ -10,6 +10,7 @@ private:
     string cargo;
     int valorHora;
     int horasTrabajadas;
+    int anioNacimiento;
     string departamento;
     double honorarios;
 
@@ -20,39 +21,56 @@ public:
     {
         return this->cargo;
     }
-    void setCargo(string cargo) {
+    void setCargo(string cargo)
+    {
         this->cargo = cargo;
     }
     int getValorHora()
     {
         return this->valorHora;
     }
-    void setValorHora(int valorHora) {
+    void setValorHora(int valorHora)
+    {
         this->valorHora = valorHora;
     }
     int getHorasTrabajadas()
     {
         return this->horasTrabajadas;
     }
-    void setHorasTrabajadas(int horasTrabajadas) {
+    void setHorasTrabajadas(int horasTrabajadas)
+    {
         this->horasTrabajadas = horasTrabajadas;
+    }
+    int getAnioNacimiento()
+    {
+        return this->anioNacimiento;
+    }
+    void setAnioNacimiento(int anioNacimiento)
+    {
+        this->anioNacimiento = anioNacimiento;
     }
     string getDepartamento()
     {
         return this->departamento;
     }
-    void setDepartamento(string departamento) {
+    void setDepartamento(string departamento)
+    {
         this->departamento = departamento;
     }
-    double getHonorarios() {
+    double getHonorarios()
+    {
         return this->honorarios;
     }
-    void setHonorarios(double honorarios) {
+    void setHonorarios(double honorarios)
+    {
         this->honorarios = honorarios;
     }
+
     void pedirDatos()
     {
         Persona::pedirDatos();
+        cout << "Ingrese el año de nacimiento: ";
+        cin >> this->anioNacimiento;
         cout << "Ingrese el cargo: ";
         cin >> this->cargo;
         cout << "Ingrese el valor de la hora (En números, sin puntos ni comas): ";
@@ -63,18 +81,32 @@ public:
         cin >> this->departamento;
     }
 
-    double calcularHonorarios()
+    void calcularHonorarios()
     {
-        this->setHonorarios((this->valorHora * this->horasTrabajadas) - (this->valorHora * this->horasTrabajadas) * 0.966);
-        return this->honorarios;
+        double salario = this->getValorHora() * this->getHorasTrabajadas();
+        double honorario = (salario * 0.966) / 100;
+        this->setHonorarios(salario - (salario * 0.966));
     }
 
-    void mostrarDatos(){
+    void mostrarDatos()
+    {
         Persona::mostrarDatos();
+        cout << "Año de nacimiento: " << this->anioNacimiento << endl;
         cout << "Cargo: " << this->cargo << endl;
         cout << "Valor por hora: " << this->valorHora << endl;
         cout << "Horas trabajadas: " << this->horasTrabajadas << endl;
         cout << "Departamento: " << this->departamento << endl;
-        cout << "Honorarios: " << this->calcularHonorarios() << endl;
+        this->calcularHonorarios();
+        cout << "Honorarios: " << this->getHonorarios() << endl;
+    }
+
+    bool mayorEdad()
+    {
+        int edad = 2024 - this->getAnioNacimiento();
+        if (edad >= 18)
+        {
+            return true;
+        }
+        return false;
     }
 };
