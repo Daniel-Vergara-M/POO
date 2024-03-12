@@ -85,7 +85,7 @@ public:
     {
         double salario = this->getValorHora() * this->getHorasTrabajadas();
         double honorario = (salario * 0.966) / 100;
-        this->setHonorarios(salario - (salario * 0.966));
+        this->setHonorarios(salario - honorario);
     }
 
     void mostrarDatos()
