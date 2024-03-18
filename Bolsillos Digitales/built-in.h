@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -36,8 +37,8 @@ T input(string message)
     return value;
 }
 /*
-*   Generates a random code of 4 digits.
-*/
+ *   Generates a random code of 4 digits.
+ */
 string generateRandomCode()
 {
     string code = "";
@@ -48,8 +49,8 @@ string generateRandomCode()
     return code;
 }
 /*
-* Converts a given string into lower-case
-*/
+ * Converts a given string into lower-case
+ */
 string toLowerCase(string str)
 {
     for (int i = 0; i < str.length(); i++)
@@ -59,8 +60,8 @@ string toLowerCase(string str)
     return str;
 }
 /*
-* Converts a given string into title-case
-*/
+ * Converts a given string into title-case
+ */
 string toTitleCase(string str)
 {
     str[0] = toupper(str[0]);
@@ -74,8 +75,8 @@ string toTitleCase(string str)
     return str;
 }
 /*
-* Converts a given string into upper-case
-*/
+ * Converts a given string into upper-case
+ */
 string toUpperCase(string str)
 {
     for (int i = 0; i < str.length(); i++)
@@ -86,8 +87,8 @@ string toUpperCase(string str)
 }
 
 /*
-*  A simple vector class that can store any type of data.
-*/
+ *  A simple vector class that can store any type of data.
+ */
 template <typename T>
 class Vector
 {
@@ -152,5 +153,163 @@ public:
         {
             cout << v[i] << " ";
         }
+    }
+};
+
+template <typename T>
+class Node
+{
+private:
+    T data;
+    Node *next;
+
+public:
+    Node()
+    {
+        this->next = NULL;
+    }
+
+    Node(T d)
+    {
+        this->data = d;
+        this->next = NULL;
+    }
+
+    T getData()
+    {
+        return this->data;
+    }
+
+    void setData(T data)
+    {
+        this->data = data;
+    }
+
+    Node<T> *getNext()
+    {
+        return this->next;
+    }
+
+    void setNext(Node<T> *next)
+    {
+        this->next = next;
+    }
+
+    Node<T> &operator=(const Node<T> &other)
+    {
+        this->data = other.data;
+        this->next = other.next;
+        return *this;
+    }
+
+    string to_string()
+    {
+        return to_string(this->data);
+    }
+
+    friend ostream &operator<<(ostream &os, Node<T> &b)
+    {
+        return os << b.to_string();
+    }
+};
+
+template <typename T>
+class List
+{
+private:
+    Node<T> *ptr;
+    int size;
+
+public:
+    List()
+    {
+        ptr = NULL;
+        size = 0;
+    }
+
+    int getSize()
+    {
+        return this->size;
+    }
+
+    void add(T d)
+    {
+        Node<T> *n = new Node<T>(d);
+        if (ptr == NULL)
+        {
+            ptr = n;
+        }
+        else
+        {
+            Node<T> *t = ptr;
+            while (t->get_next() != NULL)
+            {
+                t = t->get_next();
+            }
+            t->set_next(n);
+        }
+        size++;
+    }
+
+    void print()
+    {
+        Node<T> *t = ptr;
+        while (t != NULL)
+        {
+            cout << (*t) << endl;
+            t = t->get_next();
+        }
+    }
+    void set(int index, T value)
+    {
+        Node<T> *t = ptr;
+        for (int i = 0; i < index; i++)
+        {
+            t = t->getNext();
+        }
+        t->setData(value);
+    }
+
+    int indexOf(T value)
+    {
+        Node<T> *t = ptr;
+        for (int i = 0; i < size; i++)
+        {
+            if (t->getData() == value)
+            {
+                return i;
+            }
+            t = t->getNext();
+        }
+        return -1;
+    }
+    void remove(int index)
+    {
+        Node<T> *t = ptr;
+        if (index == 0)
+        {
+            ptr = t->getNext();
+            delete t;
+            size--;
+            return;
+        }
+        for (int i = 0; i < index - 1; i++)
+        {
+            t = t->getNext();
+        }
+        Node<T> *temp = t->getNext();
+        t->setNext(temp->getNext());
+        delete temp;
+        size--;
+    }
+
+    operator [] (int index)
+    {
+        Node<T> *t = ptr;
+        for (int i = 0; i < index; i++)
+        {
+            t = t->get_next();
+        }
+        return t->get_data();
     }
 };
