@@ -1,120 +1,126 @@
 #include <iostream>
 #include <string>
-#include <list>
 
 using namespace std;
 
-class Playlist
-{
-private:
+class Song {
+public:
     string name;
-    list<string> songs;
+    string artist;
+    int duration; // in seconds
 
-public:
-    Playlist(string name)
-    {
-        this->name = name;
-    }
-    ~Playlist() {}
-    void addSong(string song)
-    {
-        this->songs.push_back(song);
-    }
-    void removeSong(string song)
-    {
-        this->songs.remove(song);
-    }
-    void showSongs()
-    {
-        for (auto &song : this->songs)
-        {
-            cout << song << endl;
-        }
-    }
-    string getName()
-    {
-        return this->name;
-    }
-    bool operator==(const Playlist &other) const
-    {
-        return name == other.name;
+    Song(string name, string artist, int duration) : name(name), artist(artist), duration(duration) {}
+
+    bool operator==(const Song& other) const {
+        return name == other.name && artist == other.artist && duration == other.duration;
     }
 };
 
-class Jam
-{
-private:
-    list<Playlist> playlists;
-
+class Node {
 public:
-    Jam() {}
-    ~Jam() {}
-    void addPlaylist(Playlist playlist)
-    {
-        this->playlists.push_back(playlist);
+    Song data;
+    Node *next;
+
+    Node (Song val): data(val), next(nullptr) {};
+};
+
+class SongList {
+public:
+    Node* head;
+
+    SongList() : head(nullptr) {}
+
+    void addSong(Song song) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == song) {
+                cout << "La canción ya fue agregada." << endl;
+                return;
+            }
+            current = current->next;
+        }
+        Node *newNode = new Node(song);
+        newNode->next = head;
+        head = newNode;
     }
-    void removePlaylist(Playlist playlist)
-    {
-        this->playlists.remove(playlist);
-    }
-    void showPlaylists()
-    {
-        for (auto &playlist : this->playlists)
-        {
-            cout << "Playlist: " << playlist.getName() << endl;
-            playlist.showSongs();
+
+    void showList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << "Nombre: " << current->data.name << ", Artista: " << current->data.artist << ", Duración: " << current->data.duration << " segundos" << endl;
+            current = current->next;
         }
     }
-    bool isEmpty()
-    {
-        return this->playlists.empty();
+
+    bool contains(Song song) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == song) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
     }
 };
 
-int main()
-{
-    Playlist playlist1("Rap Español");
-    Playlist playlist2("Pop");
-    Jam jam;
-    int option;
-    string song;
-    while (true)
-    {
-        cout << "1. Agregar canción" << endl;
-        cout << "2. Eliminar canción" << endl;
-        cout << "3. Mostrar playlists" << endl;
-        cout << "4. Salir" << endl;
-        cout << "Opción: ";
-        cin >> option;
-        cin.ignore();  // Ignora el '\n' que queda en el buffer después de cin >> option
-        switch (option)
-        {
-        case 1:
-            cout << "Canción: ";
-            getline(cin, song);
-            playlist1.addSong(song);
-            break;
-        case 2:
-            cout << "Canción: ";
-            getline(cin, song);
-            playlist1.removeSong(song);
-            break;
-        case 3:
-            if (jam.isEmpty())
-            {
-                cout << "No hay playlists" << endl;
-            }
-            else
-            {
-                jam.addPlaylist(playlist1);
-                jam.addPlaylist(playlist2);
-                jam.showPlaylists();
-            }
-            break;
-        case 4:
-            return 0;
-        default:
+void addSongsFromDefault(SongList& list, SongList& defaultList) {
+    int index;
+    Node* current;
+    while (true) {
+        current = defaultList.head;
+        index = 0;
+        while (current != nullptr) {
+            cout << index << ": " << "Nombre: " << current->data.name << ", Artista: " << current->data.artist << ", Duración: " << current->data.duration << " segundos" << endl;
+            current = current->next;
+            index++;
+        }
+        cout << "Ingrese el índice de la canción que desea agregar (o -1 para terminar): ";
+        cin >> index;
+        if (index == -1) {
             break;
         }
+        current = defaultList.head;
+        for (int i = 0; i < index && current != nullptr; i++) {
+            current = current->next;
+        }
+        if (current != nullptr) {
+            list.addSong(current->data);
+        } else {
+            cout << "Índice inválido." << endl;
+        }
     }
+}
+
+int main() {
+    SongList listaDefault;
+    listaDefault.addSong(Song("Aunque Duela", "Reality", 156));
+    listaDefault.addSong(Song("Billie Jean", "Michael Jackson", 296));
+    listaDefault.addSong(Song("My Lie", "Zolik", 176));
+    listaDefault.addSong(Song("Scars", "1nonly", 147));
+    listaDefault.addSong(Song("Una Vaina Loca", "Fuego", 189));
+    listaDefault.addSong(Song("Another Love", "Tom Odell", 244));
+    listaDefault.addSong(Song("Viva la vida", "Coldplay", 242));
+
+    SongList lista1;
+    cout << "Seleccione las canciones para la lista 1:" << endl;
+    addSongsFromDefault(lista1, listaDefault);
+
+    SongList lista2;
+    cout << "Seleccione las canciones para la lista 2:" << endl;
+    addSongsFromDefault(lista2, listaDefault);
+
+    SongList listaJam;
+    Node* current = lista1.head;
+    while (current != nullptr) {
+        if (lista2.contains(current->data)) {
+            listaJam.addSong(current->data);
+        }
+        current = current->next;
+    }
+
+    cout << "Lista Jam: " << endl;
+    listaJam.showList();
+
+    return 0;
 }
