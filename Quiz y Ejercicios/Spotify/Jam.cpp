@@ -145,7 +145,7 @@ public:
         {
             Node *next = current->getNext();
 
-            if (sorted == nullptr || compareData(sorted->getData(), current->getData(), sortType) > 0)
+            if (sorted == nullptr || compareData(sorted->getData(), current->getData(), sortType) >= 0)
             {
                 current->setNext(sorted);
                 sorted = current;
