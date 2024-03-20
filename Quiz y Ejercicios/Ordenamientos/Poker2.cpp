@@ -34,9 +34,15 @@ void getCards(vector<Poker> &deck, string name, string suit)
 int main()
 {
     vector<Poker> deck;
+    string val;
+    string suit;
     for (int i = 0; i < 13; i++)
     {
-        getCards(deck, to_string(i + 1), "Corazones");
+        cout << "Ingrese el valor de la carta: ";
+        cin >> val;
+        cout << "Ingrese el traje de la carta: ";
+        cin >> suit;
+        getCards(deck, val, suit);
     }
     cout << "Original: " << endl;
     printVector(deck, 13);
